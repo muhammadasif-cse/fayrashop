@@ -5,7 +5,7 @@ import { NavigationSheet } from "./navigation-sheet";
 
 const Navbar = () => {
   return (
-    <nav className="pt-10 pb-4 border-b bg-background">
+    <nav className="pt-4 pb-4 border-b lg:pt-10 bg-background">
       <div className="container flex items-center justify-between px-4 mx-auto sm:px-6 lg:px-8">
         <Logo />
 

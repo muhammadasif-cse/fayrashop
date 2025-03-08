@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const Sidebar = () => {
   return (
-    <div className="p-3 overflow-y-auto w-72 max-h-96">
+    <div className="pr-3 overflow-y-auto max-h-96">
       <Accordion type="single" collapsible>
         <div className="flex flex-col gap-1">
           {categories.map((category) =>
