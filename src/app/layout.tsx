@@ -1,3 +1,5 @@
+import Header from "@/components/pages/header";
+import Navbar from "@/components/pages/navbar/navbar";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./styles/globals.css";
@@ -20,7 +22,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${interSans.variable} antialiased`}>{children}</body>
+      <body className={`${interSans.variable} antialiased`}>
+        <Header />
+        <Navbar />
+        <main className="container px-4 mx-auto sm:px-6 lg:px-8">
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
