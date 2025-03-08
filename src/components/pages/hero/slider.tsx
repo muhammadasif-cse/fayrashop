@@ -47,26 +47,24 @@ export default function Slider() {
         <CarouselContent>
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index} className="w-full text-white bg-black">
-              <div className="grid items-center grid-cols-1 gap-4 p-6 mx-auto justify-items-center lg:w-11/12 md:grid-cols-2 h-96">
+              <div className="grid items-center grid-cols-1 gap-6 p-6 mx-auto justify-items-center lg:w-11/12 md:grid-cols-2 h-96">
                 <article className="space-y-5">
                   <p>iPhone 14 Series</p>
-                  <div className="flex gap-3 md:flex-col">
-                    <h1 className="text-xl font-bold leading-relaxed xl:text-5xl md:text-3xl">
-                      Up to 10% off Voucher
-                    </h1>
-                    <Link
-                      href={"/products"}
-                      className="flex items-center gap-2 group"
-                    >
-                      <p className="pb-1 border-b group-hover:text-[var(--color-danger)] transition-all duration-300 group-hover:border-[var(--color-danger)]">
-                        Shop Now
-                      </p>{" "}
-                      <ArrowRightIcon
-                        size={18}
-                        className="group-hover:text-[var(--color-danger)] transition-all duration-300"
-                      />
-                    </Link>
-                  </div>
+                  <h1 className="text-xl font-bold leading-relaxed xl:text-5xl md:text-3xl">
+                    Up to 10% off Voucher
+                  </h1>
+                  <Link
+                    href={"/products"}
+                    className="flex items-center gap-2 group"
+                  >
+                    <p className="pb-1 border-b group-hover:text-[var(--color-danger)] transition-all duration-300 group-hover:border-[var(--color-danger)]">
+                      Shop Now
+                    </p>{" "}
+                    <ArrowRightIcon
+                      size={18}
+                      className="group-hover:text-[var(--color-danger)] transition-all duration-300"
+                    />
+                  </Link>
                 </article>
                 <Image
                   src="/images/fayrashop_hero_endframe.svg"

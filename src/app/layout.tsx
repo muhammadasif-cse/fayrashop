@@ -1,12 +1,13 @@
 import Header from "@/components/pages/header";
 import Navbar from "@/components/pages/navbar/navbar";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./styles/globals.css";
 
-const interSans = Inter({
-  variable: "--font-inter-sans",
+const poppinsSans = Poppins({
+  variable: "--font-poppins-sans",
   subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${interSans.variable} antialiased`}>
+      <body className={`${poppinsSans.variable} antialiased`}>
         <Header />
         <Navbar />
         <main className="container px-4 mx-auto sm:px-6 lg:px-8">

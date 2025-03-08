@@ -13,7 +13,7 @@ const Sidebar = () => {
   return (
     <div className="pr-3 overflow-y-auto max-h-96">
       <Accordion type="single" collapsible>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-4">
           {categories.map((category) =>
             category.category && category.category.length > 0 ? (
               <AccordionItem key={category.name} value={category.name}>
@@ -22,7 +22,7 @@ const Sidebar = () => {
                   <div className="self-stretch">
                     <hr className="w-[1px] h-full bg-primary/10 ml-2 mr-4" />
                   </div>
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-4">
                     {category.category.map((link, index) => (
                       <Link key={index} href={link.route}>
                         {link.name}
