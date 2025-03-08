@@ -1,7 +1,7 @@
 import { EyeIcon, HeartIcon } from "lucide-react";
 import Image from "next/image";
 
-const ProductCard = ({ data }: { data: any }) => {
+const ProductCard = ({ data }: { data: number }) => {
   return (
     <div className="bg-white w-[270px] group">
       <div className="relative rounded-sm bg-accent">
