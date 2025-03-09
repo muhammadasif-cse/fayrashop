@@ -82,7 +82,7 @@
   --sidebar-ring: oklch(0.704 0.04 256.788);
   --color-danger: oklch(0.6 0.2 27);
   --color-danger-foreground: oklch(0.8 0.1 27);
-  --color-success: oklch(0.7 0.2 145);
+  --color-success: oklch(0.866 0.322 145);
   --color-info: oklch(0.7 0.1 240);
 }
 
@@ -121,7 +121,7 @@
   --sidebar-ring: oklch(0.446 0.043 257.281);
   --color-danger: oklch(0.6 0.2 27);
   --color-danger-foreground: oklch(0.8 0.1 27);
-  --color-success: oklch(0.7 0.2 145);
+  --color-success: oklch(0.866 0.322 145);
   --color-info: oklch(0.7 0.1 240);
 }
 
