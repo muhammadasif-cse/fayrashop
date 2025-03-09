@@ -22,13 +22,13 @@ const FlashSales = () => {
       </div>
       <div className="pt-10">
         <Carousel>
-          <div className="absolute right-12 -top-15">
+          <div className="absolute md:block hidden right-12 -top-15">
             <CarouselPrevious />
             <CarouselNext />
           </div>
           <CarouselContent>
             {Array.from({ length: 12 }).map((_, index) => (
-              <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/5">
+              <CarouselItem key={index} className="basis-2xs">
                 <ProductCard data={index} />
               </CarouselItem>
             ))}

@@ -50,7 +50,7 @@ export default function Slider() {
               <div className="grid items-center grid-cols-1 gap-6 p-6 mx-auto justify-items-center lg:w-11/12 md:grid-cols-2 h-96">
                 <article className="space-y-5">
                   <p>iPhone 14 Series</p>
-                  <h1 className="text-xl font-bold leading-relaxed xl:text-5xl md:text-3xl">
+                  <h1 className="font-bold leading-relaxed xl:text-5xl text-3xl">
                     Up to 10% off Voucher
                   </h1>
                   <Link
