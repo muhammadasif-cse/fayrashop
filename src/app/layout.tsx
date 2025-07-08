@@ -3,6 +3,7 @@ import Navbar from "@/components/pages/navbar/navbar";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./styles/globals.css";
+import {Toaster} from "@/components/ui/sonner";
 
 const poppinsSans = Poppins({
   variable: "--font-poppins-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
         <main className="container px-4 mx-auto sm:px-6 lg:px-8">
           {children}
         </main>
+        <Toaster position="top-right" />
       </body>
     </html>
   );

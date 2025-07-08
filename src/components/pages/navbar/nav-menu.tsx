@@ -12,7 +12,7 @@ export const NavMenu = ({ style }: { style?: string }) => {
         { name: "Home", path: "/" },
         { name: "Contact", path: "/contact" },
         { name: "About", path: "/about" },
-        { name: "Sign Up", path: "/sign-up" },
+        { name: "Sign Up", path: "/auth/signup" },
       ].map((item) => {
         const isActive = pathname === item.path;
 
