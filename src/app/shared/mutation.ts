@@ -1,6 +1,7 @@
 "use client";
 
 import APIHeader from "@/redux/APIHeader";
+import { Method } from "@/utils/common/enums/method.enum";
 
 const APP_BASE_URL = process.env.APP_BASE_URL;
 
@@ -13,11 +14,18 @@ export const public_app_mutation = apiTag.injectEndpoints({
     signup: builder.mutation({
       query: (data) => ({
         url: `${APP_BASE_URL}/users/register`,
-        method: "POST",
+        method: Method.POST,
+        body: data,
+      }),
+    }),
+    login: builder.mutation({
+      query: (data) => ({
+        url: `${APP_BASE_URL}/users/login`,
+        method: Method.POST,
         body: data,
       }),
     }),
   }),
 });
 
-export const { useSignupMutation } = public_app_mutation;
+export const { useSignupMutation, useLoginMutation } = public_app_mutation;

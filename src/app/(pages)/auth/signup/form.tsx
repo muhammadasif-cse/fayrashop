@@ -92,7 +92,7 @@ export function SignupForm() {
             </CardDescription>
             <CardAction>
               <Link href={"/auth/login"}>
-                <Button variant="link">Login</Button>
+                <Button type="button" variant="link">Login</Button>
               </Link>
             </CardAction>
           </CardHeader>
@@ -125,6 +125,7 @@ export function SignupForm() {
                   <FormControl>
                     <div className="flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring">
                       <Input
+                        type="email"
                         className="border-0 focus-visible:ring-0 shadow-none"
                         placeholder="Enter your email"
                         {...field}

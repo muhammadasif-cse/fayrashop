@@ -1,43 +1,151 @@
-'use client';
+"use client";
 
-import React from 'react'
-import {Input} from "@/components/ui/input";
-import {Button} from "@/components/ui/button";
-import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { LoginSchema } from "./login.schema";
 import Link from "next/link";
-import {toast} from "sonner";
+import { EyeIcon, EyeOffIcon, Loader, LockIcon } from "lucide-react";
+import { useState } from "react";
 
-export default function Form() {
-    // submit form
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
-        if (Object.keys(data).length !== 0) {
-            // check if password and confirm password are same
-            if (data.password !== data.confirmPassword) {
-                toast.error("Password and Confirm Password do not match");
-                return;
-            }
-        }
-        console.log(data);
+import { useLoginMutation } from "@/app/shared/mutation";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+export function LoginForm() {
+  //* local state
+  const [showPassword, setShowPassword] = useState(false);
+
+  //* redux mutations
+  const [login, { isLoading }] = useLoginMutation();
+
+  //* next hooks
+  const navigation = useRouter();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof LoginSchema>) {
+    try {
+      const res: APIResponse = await login(values).unwrap();
+      if (res.success) {
+        toast.success(res.message);
+        navigation.push("/");
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
     }
+  }
 
-
-    let inputStyle: string = `!border-b-2 px-1 border-0 shadow-none outline-none rounded-none focus-visible:ring-0 focus-visible:outline-none`
-
-    return (
-        <div>
-            <form onSubmit={e => handleSubmit(e)} action="" className={`flex flex-col gap-4 mt-12`}>
-                <Input required={true} name={`email`} className={inputStyle} type="email" placeholder="Email"/>
-                <Input required={true} name={`password`} className={inputStyle} type="password" placeholder="Password"/>
-                <Button className={`py-6 rounded-sm mt-6`} type={`submit`} variant={`danger`}> Log In </Button>
-
-                <article className={`mt-4 font-normal text-base flex justify-between`}>
-                    <Link className={`font-medium text-danger hover:underline`} href={"/auth/forgot"}>Forget Password?</Link>
-                    <Link className={`font-medium border-b-2 border-black/40`} href={"/auth/signup"}>Sign Up</Link>
-                </article>
-            </form>
-        </div>
-    )
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>Login your account</CardTitle>
+            <CardDescription>
+              Enter your details below to login to your account
+            </CardDescription>
+            <CardAction>
+              <Link href={"/auth/signup"}>
+                <Button type="button" variant="link">Sign Up</Button>
+              </Link>
+            </CardAction>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <div className="flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring">
+                      <Input
+                        type="email"
+                        className="border-0 focus-visible:ring-0 shadow-none"
+                        placeholder="Enter your email"
+                        {...field}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <div className="relative flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring px-2">
+                      <LockIcon className="h-5 w-5 text-muted-foreground" />
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your password"
+                        className="border-0 focus-visible:ring-0 shadow-none"
+                        {...field}
+                      />
+                      <button type="button" onClick={togglePasswordVisibility}>
+                        {showPassword ? (
+                          <EyeOffIcon className="h-5 w-5 text-muted-foreground" />
+                        ) : (
+                          <EyeIcon className="h-5 w-5 text-muted-foreground" />
+                        )}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </CardContent>
+          <CardFooter>
+            <Button
+              disabled={isLoading}
+              variant={"secondary"}
+              type="submit"
+              className="w-full"
+            >
+              {isLoading && <Loader className="animate-spin" />} Login
+            </Button>
+          </CardFooter>
+        </Card>
+      </form>
+    </Form>
+  );
 }
