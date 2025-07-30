@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { Skeleton } from "../ui/skeleton";
 const Navbar = dynamic(() => import("@/components/pages/navbar/navbar"), {
   ssr: false,
-  loading: () => <Skeleton className="h-16 w-full" />,
+  loading: () => <Skeleton className="h-20 w-full" />,
 });
 
 const Navigation = () => {
