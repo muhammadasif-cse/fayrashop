@@ -32,6 +32,7 @@ import { useState } from "react";
 import { useLoginMutation } from "@/app/shared/mutation";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import useAuth from "@/hooks/useAuth";
 
 export function LoginForm() {
   //* local state
@@ -40,7 +41,8 @@ export function LoginForm() {
   //* redux mutations
   const [login, { isLoading }] = useLoginMutation();
 
-  //* next hooks
+  //* hooks
+  const { setAuthInfo } = useAuth();
   const navigation = useRouter();
 
   const togglePasswordVisibility = () => {
@@ -60,6 +62,11 @@ export function LoginForm() {
       const res: APIResponse = await login(values).unwrap();
       if (res.success) {
         toast.success(res.message);
+        setAuthInfo({
+          token: res.data.access_token,
+          user: res.data.user,
+          is_loggedIn: true,
+        });
         navigation.push("/");
       } else {
         toast.error(res.message);
@@ -80,7 +87,9 @@ export function LoginForm() {
             </CardDescription>
             <CardAction>
               <Link href={"/auth/signup"}>
-                <Button type="button" variant="link">Sign Up</Button>
+                <Button type="button" variant="link">
+                  Sign Up
+                </Button>
               </Link>
             </CardAction>
           </CardHeader>
