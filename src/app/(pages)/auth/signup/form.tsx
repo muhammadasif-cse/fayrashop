@@ -27,7 +27,7 @@ import { Input } from "@/components/ui/input";
 import { signupSchema } from "./signup.schema";
 import { Role } from "@/utils/common/enums/role.enum";
 import Link from "next/link";
-import { EyeIcon, EyeOffIcon, LockIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, Loader, LockIcon } from "lucide-react";
 import { useState } from "react";
 import {
   Select,
@@ -36,9 +36,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useSignupMutation } from "@/app/shared/mutation";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function SignupForm() {
+  //* local state
   const [showPassword, setShowPassword] = useState(false);
+
+  //* redux mutations
+  const [signup, { isLoading }] = useSignupMutation();
+
+  //* next hooks
+  const navigation = useRouter();
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -53,10 +64,18 @@ export function SignupForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof signupSchema>) {
+  async function onSubmit(values: z.infer<typeof signupSchema>) {
     try {
-      console.log("process.env.APP_BASE_URL", process.env.APP_BASE_URL);
-      console.log("values", values);
+      const res: APIResponse = await signup(values).unwrap();
+      if (res.success) {
+        toast.success(res.message);
+        navigation.push("/auth/login");
+      } else {
+        if (res.meta) {
+          res.meta.error.includes("Duplicate entry") &&
+            toast.error("Email already exists.");
+        } else toast.error(res.message);
+      }
     } catch (error) {
       console.error("Signup failed:", error);
     }
@@ -85,7 +104,7 @@ export function SignupForm() {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <div className="flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring px-2">
+                    <div className="flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring">
                       <Input
                         className="border-0 focus-visible:ring-0 shadow-none"
                         placeholder="Enter your name"
@@ -104,7 +123,7 @@ export function SignupForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <div className="flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring px-2">
+                    <div className="flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring">
                       <Input
                         className="border-0 focus-visible:ring-0 shadow-none"
                         placeholder="Enter your email"
@@ -174,8 +193,13 @@ export function SignupForm() {
             />
           </CardContent>
           <CardFooter>
-            <Button variant={"secondary"} type="submit" className="w-full">
-              Sign Up
+            <Button
+              disabled={isLoading}
+              variant={"secondary"}
+              type="submit"
+              className="w-full"
+            >
+              {isLoading && <Loader className="animate-spin" />} Sign Up
             </Button>
           </CardFooter>
         </Card>
