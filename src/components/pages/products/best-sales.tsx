@@ -15,7 +15,7 @@ const BestSales = () => {
       <HighlightText>This Month</HighlightText>
       <div className="flex flex-wrap items-end pt-6 justify-between gap-y-3">
         <Title>Best Selling Products</Title>
-        <Button variant={"danger"} size={"lg"}>
+        <Button variant={"destructive"} size={"lg"}>
           View All
         </Button>
       </div>
