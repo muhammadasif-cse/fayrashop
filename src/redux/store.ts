@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 import APIHeader from "./APIHeader";
-import { public_app } from "@/app/shared/action";
+import { public_app } from "@/app/redux-public-app/action";
 
 const store = configureStore({
   reducer: {

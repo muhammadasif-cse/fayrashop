@@ -2,38 +2,56 @@ import Cookies from "js-cookie";
 
 export type TAuthCookies = {
   token: string;
-  user: any;
+  user: Record<string, any>;
   is_loggedIn: boolean;
 };
 
-export type TSetAuthCookies = {
-  data: string;
-  name: "token" | "user" | "is_loggedIn";
-  expire?: number;
-};
+export type AuthCookieKey = "token" | "user" | "is_loggedIn";
 
-export const setAuth = ({ data, name, expire }: TSetAuthCookies): void => {
-  const temp_expire = expire ? expire : 8 / 24; // default: 8 hours
-  Cookies.set(name, data, {
-    expires: temp_expire,
+const DEFAULT_EXPIRE = 8 / 24; // 8 hours
+
+function safeParse<T>(value: string | undefined, fallback: T): T {
+  if (!value || value === "undefined") return fallback;
+  try {
+    return JSON.parse(value) as T;
+  } catch {
+    return fallback;
+  }
+}
+
+export function setAuthCookie(
+  key: AuthCookieKey,
+  value: any,
+  expire?: number
+): void {
+  Cookies.set(key, JSON.stringify(value), {
+    expires: expire ?? DEFAULT_EXPIRE,
     secure: false,
     sameSite: "Lax",
   });
-};
+}
 
-export const getAuth = (): TAuthCookies => {
-  const token = Cookies.get("token") ?? null;
-  const user = Cookies.get("user") ?? null;
-  const is_loggedIn = Cookies.get("is_loggedIn") ?? false;
+export function getAuthCookie(key: AuthCookieKey): any {
+  return safeParse(
+    Cookies.get(key),
+    key === "is_loggedIn" ? false : key === "user" ? {} : ""
+  );
+}
+
+export function getAuth(): TAuthCookies {
   return {
-    token: token ? JSON.parse(token) : "",
-    user: user ? JSON.parse(user) : {},
-    is_loggedIn: is_loggedIn ? JSON.parse(is_loggedIn) : false,
+    token: getAuthCookie("token"),
+    user: getAuthCookie("user"),
+    is_loggedIn: getAuthCookie("is_loggedIn"),
   };
-};
+}
 
-export const removeAuth = (): void => {
-  Cookies.remove("token");
-  Cookies.remove("user");
-  Cookies.remove("is_loggedIn");
-};
+export function setAuthAll(payload: TAuthCookies, expire?: number): void {
+  setAuthCookie("token", payload.token, expire);
+  setAuthCookie("user", payload.user, expire);
+  setAuthCookie("is_loggedIn", payload.is_loggedIn, expire);
+}
+
+export function removeAuth(): void {
+  ["token", "user", "is_loggedIn"].forEach((key) => Cookies.remove(key));
+}

@@ -1,9 +1,13 @@
 "use client";
 
+import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export const NavMenu = ({ style }: { style?: string }) => {
+  //* hooks
+  const { auth } = useAuth();
+
   const pathname = usePathname();
 
   return (
@@ -12,7 +16,10 @@ export const NavMenu = ({ style }: { style?: string }) => {
         { name: "Home", path: "/" },
         { name: "Contact", path: "/contact" },
         { name: "About", path: "/about" },
-        { name: "Sign Up", path: "/auth/signup" },
+        {
+          name: auth.is_loggedIn ? "Profile" : "Sign Up",
+          path: auth.is_loggedIn ? "/auth/profile" : "/auth/signup",
+        },
       ].map((item) => {
         const isActive = pathname === item.path;
 
