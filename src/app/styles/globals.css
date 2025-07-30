@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "./navmenu.css";
 
-@plugin "tailwindcss-animate";
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -156,4 +154,7 @@
 
 .bg-info {
   @apply bg-[var(--color-info)];
+}
+::selection {
+  @apply bg-primary !text-primary-foreground;
 }

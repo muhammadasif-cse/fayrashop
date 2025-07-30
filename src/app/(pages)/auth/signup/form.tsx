@@ -1,51 +1,185 @@
-'use client';
+"use client";
 
-import React from 'react'
-import {Input} from "@/components/ui/input";
-import {Button} from "@/components/ui/button";
-import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { signupSchema } from "./signup.schema";
+import { Role } from "@/utils/common/enums/role.enum";
 import Link from "next/link";
-import {toast} from "sonner";
+import { EyeIcon, EyeOffIcon, LockIcon } from "lucide-react";
+import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-export default function Form() {
-    // submit form
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
-        if (Object.keys(data).length !== 0) {
-            // check if password and confirm password are same
-            if (data.password !== data.confirmPassword) {
-                toast.error("Password and Confirm Password do not match");
-                return;
-            }
-        }
-        console.log(data);
+export function SignupForm() {
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const form = useForm<z.infer<typeof signupSchema>>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      role: Role.CUSTOMER,
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof signupSchema>) {
+    try {
+      console.log("process.env.APP_BASE_URL", process.env.APP_BASE_URL);
+      console.log("values", values);
+    } catch (error) {
+      console.error("Signup failed:", error);
     }
+  }
 
-
-    let inputStyle: string = `!border-b-2 px-1 border-0 shadow-none outline-none rounded-none focus-visible:ring-0 focus-visible:outline-none`
-
-    return (
-        <div>
-            <form onSubmit={e => handleSubmit(e)} action="" className={`flex flex-col gap-4 mt-12`}>
-                <Input required={true} name={`name`} className={inputStyle} type="text" placeholder="Name"/>
-                <Input required={true} name={`email`} className={inputStyle} type="email" placeholder="Email"/>
-                <Input required={false} name={`phone`} className={inputStyle} type="number" placeholder="Phone Number"/>
-                <Input required={true} name={`password`} className={inputStyle} type="password" placeholder="Password"/>
-                <Input required={true} name={`confirmPassword`} className={inputStyle} type="password" placeholder="Confirm Password"/>
-                <Button className={`py-6 rounded-sm mt-6`} type={`submit`} variant={`danger`}>
-                    Create Account
-                </Button>
-                <Button variant={`outline`} className={`py-6 rounded-sm`}>
-                    <Image src={`/images/auth/google-icon.svg`} alt={`google-icon`} width={24} height={24}/>
-                    Sign up with Google
-                </Button>
-                <article className={`mt-4 font-normal text-base flex gap-4 justify-center`}>
-                    <p>Already have account?</p>
-                    <Link className={`font-medium border-b-2 border-black/40`} href={"/auth/login"}>Log in</Link>
-                </article>
-            </form>
-        </div>
-    )
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>Create your account</CardTitle>
+            <CardDescription>
+              Enter your details below to create an account
+            </CardDescription>
+            <CardAction>
+              <Link href={"/auth/login"}>
+                <Button variant="link">Login</Button>
+              </Link>
+            </CardAction>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <div className="flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring px-2">
+                      <Input
+                        className="border-0 focus-visible:ring-0 shadow-none"
+                        placeholder="Enter your name"
+                        {...field}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <div className="flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring px-2">
+                      <Input
+                        className="border-0 focus-visible:ring-0 shadow-none"
+                        placeholder="Enter your email"
+                        {...field}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <div className="relative flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring px-2">
+                      <LockIcon className="h-5 w-5 text-muted-foreground" />
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your password"
+                        className="border-0 focus-visible:ring-0 shadow-none"
+                        {...field}
+                      />
+                      <button type="button" onClick={togglePasswordVisibility}>
+                        {showPassword ? (
+                          <EyeOffIcon className="h-5 w-5 text-muted-foreground" />
+                        ) : (
+                          <EyeIcon className="h-5 w-5 text-muted-foreground" />
+                        )}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Role</FormLabel>
+                  <FormControl>
+                    <div className="relative flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring">
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger className="border-0 focus-visible:ring-0 shadow-none w-full">
+                          <SelectValue placeholder="Select role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value={Role.CUSTOMER}>
+                            Customer
+                          </SelectItem>
+                          <SelectItem value={Role.SELLER}>Seller</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </CardContent>
+          <CardFooter>
+            <Button variant={"secondary"} type="submit" className="w-full">
+              Sign Up
+            </Button>
+          </CardFooter>
+        </Card>
+      </form>
+    </Form>
+  );
 }

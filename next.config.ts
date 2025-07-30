@@ -1,7 +1,20 @@
 import type { NextConfig } from "next";
+const env = process.env;
+
+const BASE_URL = `${env.NEXT_PUBLIC_API_HTTP_VERSION}://${env.NEXT_PUBLIC_API_HOST}/${env.NEXT_PUBLIC_API_VERSION}/${env.NEXT_PUBLIC_API_COMMON_PREFIX}`;
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  env: {
+    APP_NAME: env.NEXT_PUBLIC_APP_NAME,
+    APP_ORG: env.NEXT_PUBLIC_ORG_NAME,
+    APP_DEBUG: env.NEXT_PUBLIC_APP_DEBUG,
+    APP_HTTP_VERSION: env.NEXT_PUBLIC_API_HTTP_VERSION,
+    APP_HOST: env.NEXT_PUBLIC_API_HOST,
+    APP_VERSION: env.NEXT_PUBLIC_API_VERSION,
+    APP_COMMON_PREFIX: env.NEXT_PUBLIC_API_COMMON_PREFIX,
+    APP_ASSET_COMMON_PREFIX: env.NEXT_PUBLIC_API_ASSET_COMMON_PREFIX,
+    APP_BASE_URL: BASE_URL,
+  },
 };
 
 export default nextConfig;
