@@ -36,7 +36,7 @@ const FlashSales = () => {
         </Carousel>
       </div>
       <div className="flex justify-center py-14">
-        <Button variant={"danger"} className="rounded-sm">
+        <Button variant={"destructive"} className="rounded-sm">
           View All Products
         </Button>
       </div>
