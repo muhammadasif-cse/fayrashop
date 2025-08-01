@@ -2,23 +2,16 @@
 
 import * as React from "react";
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
+  HeadsetIcon,
+  HeartIcon,
+  ShoppingCartIcon,
+  UserRoundCogIcon,
 } from "lucide-react";
 
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { NavMain } from "./nav-main";
@@ -29,140 +22,93 @@ const data = {
   user: {
     name: "shadcn",
     email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    avatar: "/user/avatars/shadcn.jpg",
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
   navMain: [
     {
-      title: "Playground",
+      title: "Profile & Settings",
       url: "#",
-      icon: SquareTerminal,
-      isActive: true,
+      icon: UserRoundCogIcon,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "Personal Information", // Name, Email, Phone, Profile Picture
+          url: "/user/profile",
         },
         {
-          title: "Starred",
-          url: "#",
+          title: "Address Book", // Shipping & Billing Addresses
+          url: "/user/profile/address-book",
         },
         {
-          title: "Settings",
-          url: "#",
+          title: "Login & Security", // Password, Two-Factor Authentication
+          url: "/user/profile/login-security",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Orders & Activity",
       url: "#",
-      icon: Bot,
+      icon: ShoppingCartIcon,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "Order History", // Track & View Orders
+          url: "/user/order-history",
         },
         {
-          title: "Explorer",
-          url: "#",
+          title: "Returns & Refunds",
+          url: "/user/returns-refunds",
         },
         {
-          title: "Quantum",
-          url: "#",
+          title: "Cancellations",
+          url: "/user/cancellations",
         },
       ],
     },
     {
-      title: "Documentation",
+      title: "Favorites & Lists",
       url: "#",
-      icon: BookOpen,
+      icon: HeartIcon,
       items: [
         {
-          title: "Introduction",
-          url: "#",
+          title: "My Wishlist",
+          url: "/user/my-wishlist",
         },
         {
-          title: "Get Started",
-          url: "#",
+          title: "Saved for Later",
+          url: "/user/saved-for-later",
         },
         {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
+          title: "Product Alerts", //  (Back-in-stock, Price drops)
+          url: "/user/product-alerts",
         },
       ],
     },
     {
-      title: "Settings",
+      title: "Support & Help",
       url: "#",
-      icon: Settings2,
+      icon: HeadsetIcon,
       items: [
         {
-          title: "General",
-          url: "#",
+          title: "FAQs",
+          url: "faqs",
         },
         {
-          title: "Team",
-          url: "#",
+          title: "Live Chat",
+          url: "live-chat",
         },
         {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
+          title: "Report an Issue",
+          url: "report-issue",
         },
       ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
     },
   ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      {/* <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
-      </SidebarHeader> */}
+    <Sidebar className="relative" collapsible="icon" {...props}>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
