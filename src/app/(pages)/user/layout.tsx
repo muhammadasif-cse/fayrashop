@@ -1,24 +1,18 @@
 import { AppSidebar } from "@/components/ui/app-sidebar";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
-import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
+import React, { type ReactNode } from "react";
+import { DynamicBreadcrumb } from "@/components/ui/dynamic-breadcrumb";
 
-export default function UserLayout({
+export default async function UserLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: ReactNode;
+}) {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -30,21 +24,10 @@ export default function UserLayout({
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <DynamicBreadcrumb />
           </div>
         </header>
+
         <main className="flex-1 overflow-y-auto p-4">
           <div className="container mx-auto">{children}</div>
         </main>
