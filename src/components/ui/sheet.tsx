@@ -1,8 +1,8 @@
 "use client";
 
+import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { XIcon } from "lucide-react";
-import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -36,7 +36,7 @@ function SheetOverlay({
     <SheetPrimitive.Overlay
       data-slot="sheet-overlay"
       className={cn(
-        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
         className
       )}
       {...props}
@@ -55,7 +55,7 @@ function SheetContent({
   return (
     <SheetPortal>
       <SheetOverlay />
-      <SheetTitle />
+      <SheetPrimitive.Title></SheetPrimitive.Title>
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
@@ -130,11 +130,11 @@ function SheetDescription({
 
 export {
   Sheet,
+  SheetTrigger,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
+  SheetFooter,
   SheetTitle,
-  SheetTrigger,
+  SheetDescription,
 };

@@ -1,11 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
+  "name": "FayraShop",
+  "description": "A modern e-commerce platform built with Next.js, Tailwind CSS, and shadcn/ui.",
   "style": "new-york",
   "rsc": true,
   "tsx": true,
   "tailwind": {
-    "config": "",
-    "css": "src/app/globals.css",
+    "config": "tailwind.config.ts",
+    "css": "src/app/styles/globals.css",
     "baseColor": "slate",
     "cssVariables": true,
     "prefix": ""

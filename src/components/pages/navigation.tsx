@@ -1,12 +1,6 @@
-"use client";
 import React from "react";
 import Header from "./header";
-import dynamic from "next/dynamic";
-import { Skeleton } from "../ui/skeleton";
-const Navbar = dynamic(() => import("@/components/pages/navbar/navbar"), {
-  ssr: false,
-  loading: () => <Skeleton className="h-20 w-full" />,
-});
+import Navbar from "./navbar/navbar";
 
 const Navigation = () => {
   return (
