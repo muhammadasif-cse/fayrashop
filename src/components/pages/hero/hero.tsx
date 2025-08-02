@@ -3,7 +3,7 @@ import Slider from "./slider";
 
 const Hero = () => {
   return (
-    <div className="container mx-auto flex flex-wrap items-start w-full lg:flex-nowrap">
+    <div className="container px-0 mx-auto flex flex-wrap items-start w-full lg:flex-nowrap">
       <div className="order-2 w-full px-2 md:px-0 pt-8 lg:order-1 lg:w-72">
         <Sidebar />
       </div>
