@@ -1,14 +1,9 @@
 .nav-link {
   position: relative;
   padding-bottom: 2px;
-  color: var(--primary);
+  color: var(--secondary-foreground);
   transition: color 0.4s ease-in-out;
   text-decoration: none;
-}
-
-.nav-link:hover .nav-border {
-  width: 100%;
-  transition: none;
 }
 
 .nav-border {
@@ -18,19 +13,11 @@
   width: 0;
   height: 2px;
   background-color: var(--muted-foreground);
-  transition: width 0.4s ease-in-out;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.nav-link:active .nav-border {
-  width: 100%;
-  transition: width 0.4s ease-in-out;
-}
-
-.nav-link.active {
-  color: var(--primary);
-}
-
+.nav-link:hover .nav-border,
+.nav-link:active .nav-border,
 .nav-link.active .nav-border {
   width: 100%;
-  transition: width 0.4s ease-in-out;
 }
