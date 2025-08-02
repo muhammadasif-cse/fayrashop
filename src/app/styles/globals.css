@@ -134,6 +134,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  .header {
+    @apply flex justify-center p-3 text-xs font-normal sm:text-sm text-background dark:text-foreground dark:bg-accent bg-accent-foreground;
+  }
 
   ::selection {
     @apply bg-primary/30 text-primary;
