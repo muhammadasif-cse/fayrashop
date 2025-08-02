@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import ScrollTop from "../scroll-top";
 
 const footerSections = [
   {
@@ -138,7 +139,8 @@ const footerSections = [
 
 const Footer01Page = () => {
   return (
-    <footer className="dark:bg-accent/30 bg-foreground">
+    <footer className="dark:bg-accent/30 bg-foreground relative">
+      <ScrollTop />
       <div className="container mx-auto py-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-x-8 gap-y-10 px-6 xl:px-0">
         <div className="col-span-full xl:col-span-2">
           <h3 className="text-2xl text-white font-bold">FayraShop</h3>
