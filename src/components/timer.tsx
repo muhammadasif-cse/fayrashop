@@ -3,82 +3,95 @@ import Title from "@/utils/helpers/title";
 import React, { useEffect, useState } from "react";
 
 interface TimerProps {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
+  timestamp: string | Date;
+  onComplete?: () => void;
 }
 
-const Timer: React.FC<TimerProps> = ({ days, hours, minutes, seconds }) => {
+const Timer: React.FC<TimerProps> = ({ timestamp, onComplete }) => {
   const [time, setTime] = useState({
-    days,
-    hours,
-    minutes,
-    seconds,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   });
+  const [isExpired, setIsExpired] = useState(false);
+
+  const calculateTimeLeft = () => {
+    const targetDate = new Date(timestamp);
+    const now = new Date();
+    const difference = targetDate.getTime() - now.getTime();
+
+    if (difference <= 0) {
+      setIsExpired(true);
+      setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      if (onComplete) {
+        onComplete();
+      }
+      return;
+    }
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    setTime({ days, hours, minutes, seconds });
+  };
 
   useEffect(() => {
+    calculateTimeLeft();
+
     const countdown = setInterval(() => {
-      if (time.seconds > 0) {
-        setTime((prevTime) => ({ ...prevTime, seconds: prevTime.seconds - 1 }));
-      } else if (time.minutes > 0) {
-        setTime((prevTime) => ({
-          ...prevTime,
-          minutes: prevTime.minutes - 1,
-          seconds: 59,
-        }));
-      } else if (time.hours > 0) {
-        setTime((prevTime) => ({
-          ...prevTime,
-          hours: prevTime.hours - 1,
-          minutes: 59,
-          seconds: 59,
-        }));
-      } else if (time.days > 0) {
-        setTime((prevTime) => ({
-          ...prevTime,
-          days: prevTime.days - 1,
-          hours: 23,
-          minutes: 59,
-          seconds: 59,
-        }));
-      } else {
-        clearInterval(countdown);
-      }
+      calculateTimeLeft();
     }, 1000);
 
     return () => clearInterval(countdown);
-  }, [time]);
+  }, [timestamp]);
+
+  const formatNumber = (num: number) => num.toString().padStart(2, "0");
+
+  if (isExpired) {
+    return (
+      <div className="flex items-center gap-4 opacity-50">
+        <div className="text-center">
+          <p className="text-xs font-medium">Expired</p>
+          <Title>00</Title>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-2">
       <div className="text-center">
         <p className="text-xs font-medium">Days</p>
-        <Title>{`${time.days}`}</Title>
+        <Title>{formatNumber(time.days)}</Title>
       </div>
-      <div className="space-y-2">
-        <hr className="w-1 h-1 bg-danger rounded-full" />
-        <hr className="w-1 h-1 bg-danger rounded-full" />
+      <div className="space-y-2 mt-4">
+        <hr className="w-1 h-1 bg-primary rounded-full" />
+        <hr className="w-1 h-1 bg-primary rounded-full" />
       </div>
       <div className="text-center">
         <p className="text-xs font-medium">Hours</p>
-        <Title>{`${time.hours}`}</Title>
+        <Title>{formatNumber(time.hours)}</Title>
       </div>
-      <div className="space-y-2">
-        <hr className="w-1 h-1 bg-danger rounded-full" />
-        <hr className="w-1 h-1 bg-danger rounded-full" />
+      <div className="space-y-2 mt-4">
+        <hr className="w-1 h-1 bg-primary rounded-full" />
+        <hr className="w-1 h-1 bg-primary rounded-full" />
       </div>
       <div className="text-center">
-        <p className="text-xs">Minutes</p>
-        <Title>{`${time.minutes}`}</Title>
+        <p className="text-xs font-medium">Minutes</p>
+        <Title>{formatNumber(time.minutes)}</Title>
       </div>
-      <div className="space-y-2">
-        <hr className="w-1 h-1 bg-danger rounded-full" />
-        <hr className="w-1 h-1 bg-danger rounded-full" />
+      <div className="space-y-2 mt-4">
+        <hr className="w-1 h-1 bg-primary rounded-full" />
+        <hr className="w-1 h-1 bg-primary rounded-full" />
       </div>
       <div className="text-center">
         <p className="text-xs font-medium">Seconds</p>
-        <Title>{`${time.seconds}`}</Title>
+        <Title>{formatNumber(time.seconds)}</Title>
       </div>
     </div>
   );

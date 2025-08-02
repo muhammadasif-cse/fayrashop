@@ -1,7 +1,7 @@
 "use client";
+
 import ProductCard from "@/components/product-card";
 import Timer from "@/components/timer";
-import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -73,11 +73,14 @@ const FlashSales = () => {
   };
 
   return (
-    <section className="container mx-auto relative pt-20 sm:pr-0">
+    <section className="container mx-auto relative pt-10 sm:pr-0">
       <HighlightText>Today’s</HighlightText>
       <div className="flex flex-wrap items-end pt-6 gap-x-20 gap-y-3">
         <Title>Flash Sales</Title>
-        <Timer days={90} hours={23} minutes={45} seconds={0} />
+        <Timer
+          timestamp="2025-12-31T23:59:59Z"
+          onComplete={() => console.log("Timer expired!")}
+        />
       </div>
       <div className="pt-10">
         <Carousel>
@@ -105,9 +108,6 @@ const FlashSales = () => {
             })}
           </CarouselContent>
         </Carousel>
-      </div>
-      <div className="py-14">
-        <hr />
       </div>
     </section>
   );

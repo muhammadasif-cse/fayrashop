@@ -14,7 +14,7 @@ const Categories = () => {
     <div className="container mx-auto sm:pr-0">
       <HighlightText>Categories</HighlightText>
       <Title style="pt-6">Browse By Category</Title>
-      <div className="py-14">
+      <div className="pt-10">
         <Carousel>
           <div className="absolute md:block hidden right-12 -top-15">
             <CarouselPrevious />
@@ -28,9 +28,6 @@ const Categories = () => {
             ))}
           </CarouselContent>
         </Carousel>
-      </div>
-      <div className="pb-14">
-        <hr />
       </div>
     </div>
   );
