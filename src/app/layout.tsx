@@ -28,9 +28,7 @@ export default function RootLayout({
       <body className={`${poppinsSans.variable} antialiased`}>
         <ReduxProviders>
           <Navigation />
-          <main className="container px-4 mx-auto sm:px-6 lg:px-8">
-            {children}
-          </main>
+          <main>{children}</main>
           <Toaster position="top-right" richColors />
         </ReduxProviders>
       </body>

@@ -15,7 +15,7 @@ const NavAction = ({ style }: { style?: string }) => {
 
   return (
     <div className={"flex flex-wrap-reverse sm:gap-6 gap-3" + (style ? ` ${style}` : "")}>
-      <div className="flex items-center w-64 px-2 rounded-sm sm:px-3 bg-input/30">
+      <div className="flex items-center min-w-64 px-2 rounded-sm sm:px-3 bg-input/30">
         <Input
           type="search"
           placeholder="What are you looking for?"

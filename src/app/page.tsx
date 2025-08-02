@@ -6,8 +6,8 @@ import FlashSales from "@/components/pages/products/flash-sales";
 export default function Home() {
   return (
     <div>
-      {/* <Hero />
-      <FlashSales />
+      <Hero />
+      {/* <FlashSales />
       <Categories />
       <BestSales /> */}
     </div>
