@@ -4,6 +4,7 @@ import "./styles/globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import ReduxProviders from "@/redux/provider";
 import Navigation from "@/components/pages/navigation";
+import Footer from "@/components/pages/footer";
 
 const poppinsSans = Poppins({
   variable: "--font-poppins-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
         <ReduxProviders>
           <Navigation />
           <main>{children}</main>
+          <Footer />
           <Toaster position="top-right" richColors />
         </ReduxProviders>
       </body>
