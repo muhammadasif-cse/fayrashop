@@ -14,7 +14,7 @@ import Title from "@/utils/helpers/title";
 
 const FlashSales = () => {
   return (
-    <section className="relative pt-16 md:pt-32">
+    <section className="container mx-auto relative pt-20 sm:pl-0 pl-3">
       <HighlightText>Today’s</HighlightText>
       <div className="flex flex-wrap items-end pt-6 gap-x-20 gap-y-3">
         <Title>Flash Sales</Title>
@@ -35,12 +35,7 @@ const FlashSales = () => {
           </CarouselContent>
         </Carousel>
       </div>
-      <div className="flex justify-center py-14">
-        <Button variant={"destructive"} className="rounded-sm">
-          View All Products
-        </Button>
-      </div>
-      <div className="pb-14">
+      <div className="py-14">
         <hr />
       </div>
     </section>

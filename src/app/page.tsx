@@ -7,9 +7,9 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      {/* <FlashSales />
+      <FlashSales />
       <Categories />
-      <BestSales /> */}
+      <BestSales />
     </div>
   );
 }

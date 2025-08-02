@@ -19,7 +19,7 @@ const ProductCard = ({
   };
 }) => {
   return (
-    <div className="bg-white w-[270px] group">
+    <div className="bg-accent/30 w-[270px] group">
       <div className="relative rounded-sm bg-accent">
         <Image
           src={`/images/fayrashop-products-${data + 1}.svg`}
@@ -73,7 +73,7 @@ const ProductCard = ({
           </button>
         ) : null}
       </div>
-      <div className="pt-4 space-y-2">
+      <div className="pt-4 px-1 space-y-2">
         <h4 className="text-base font-medium">HAVIT HV-G92 Gamepad</h4>
         {actions?.discount_price ? (
           <div className="space-y-2">

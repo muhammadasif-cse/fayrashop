@@ -8,7 +8,7 @@ const Title = ({
   return (
     <h1
       className={
-        "text-4xl font-semibold text-primary" + (style ? ` ${style}` : "")
+        "md:text-4xl text-2xl font-semibold text-secondary-foreground" + (style ? ` ${style}` : "")
       }
     >
       {children}
