@@ -77,7 +77,10 @@ const FlashSales = () => {
       <HighlightText>Today’s</HighlightText>
       <div className="flex flex-wrap items-end pt-6 gap-x-20 gap-y-3">
         <Title>Flash Sales</Title>
-        <Timer days={90} hours={23} minutes={45} seconds={0} />
+        <Timer
+          timestamp="2025-12-31T23:59:59Z"
+          onComplete={() => console.log("Timer expired!")}
+        />
       </div>
       <div className="pt-10">
         <Carousel>
