@@ -79,7 +79,7 @@ export function LoginForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="w-full">
+        <Card className="min-w-lg">
           <CardHeader>
             <CardTitle>Login your account</CardTitle>
             <CardDescription>

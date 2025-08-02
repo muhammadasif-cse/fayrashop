@@ -84,7 +84,7 @@ export function SignupForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="w-full">
+        <Card className="min-w-lg">
           <CardHeader>
             <CardTitle>Create your account</CardTitle>
             <CardDescription>

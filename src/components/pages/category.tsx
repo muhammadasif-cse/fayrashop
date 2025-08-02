@@ -29,7 +29,7 @@ function Category() {
             <Button
               size={"lg"}
               variant={"success"}
-              className="bg-success rounded text-secondary-foreground font-semibold transition duration-300"
+              className="bg-success rounded text-black font-semibold transition duration-300"
             >
               Buy Now!
             </Button>
