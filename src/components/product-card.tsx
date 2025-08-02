@@ -137,7 +137,7 @@ const ProductCard = ({
 
         <div className="absolute top-3 left-3">
           {product.isNew && (
-            <div className="px-2 w-fit rounded py-1 text-xs text-accent bg-chart-2 mb-2">
+            <div className="px-2 w-fit rounded py-1 text-xs text-black bg-success mb-2">
               New
             </div>
           )}
