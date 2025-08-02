@@ -1,11 +1,21 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { HeartIcon, SearchIcon, ShoppingCartIcon } from "lucide-react";
+import {
+  HeartIcon,
+  MoonIcon,
+  SearchIcon,
+  ShoppingCartIcon,
+  SunIcon,
+} from "lucide-react";
+import { useTheme } from "next-themes";
 
 const NavAction = ({ style }: { style?: string }) => {
+  const { theme, setTheme } = useTheme();
+
   return (
-    <div className={"sm:gap-6 gap-3" + (style ? ` ${style}` : "")}>
-      <div className="flex items-center w-64 px-2 rounded-sm sm:px-3 bg-muted">
+    <div className={"flex flex-wrap-reverse sm:gap-6 gap-3" + (style ? ` ${style}` : "")}>
+      <div className="flex items-center min-w-64 px-2 rounded-sm sm:px-3 bg-input/30">
         <Input
           type="search"
           placeholder="What are you looking for?"
@@ -19,6 +29,20 @@ const NavAction = ({ style }: { style?: string }) => {
       <div className="flex items-center gap-4">
         <HeartIcon className="w-6 h-6" />
         <ShoppingCartIcon className="w-6 h-6" />
+        {
+          <button
+            onClick={() =>
+              setTheme((theme) => (theme === "dark" ? "light" : "dark"))
+            }
+            className="p-2 cursor-pointer rounded-full hover:bg-muted transition-colors"
+          >
+            {theme === "dark" ? (
+              <SunIcon className="w-6 h-6" />
+            ) : (
+              <MoonIcon className="w-6 h-6" />
+            )}
+          </button>
+        }
       </div>
     </div>
   );

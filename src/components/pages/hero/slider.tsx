@@ -84,7 +84,7 @@ export default function Slider() {
             key={index}
             onClick={() => api?.scrollTo(index)}
             className={cn("h-3.5 w-3.5 rounded-full bg-white/50", {
-              "border-2 border-white bg-danger": current === index + 1,
+              "border-2 border-white bg-primary": current === index + 1,
             })}
           />
         ))}

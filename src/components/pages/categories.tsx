@@ -11,7 +11,7 @@ import {
 
 const Categories = () => {
   return (
-    <div>
+    <div className="container mx-auto sm:pr-0">
       <HighlightText>Categories</HighlightText>
       <Title style="pt-6">Browse By Category</Title>
       <div className="py-14">

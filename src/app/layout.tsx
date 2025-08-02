@@ -23,13 +23,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head />
       <body className={`${poppinsSans.variable} antialiased`}>
         <ReduxProviders>
           <Navigation />
-          <main className="container px-4 mx-auto sm:px-6 lg:px-8">
-            {children}
-          </main>
+          <main>{children}</main>
           <Toaster position="top-right" richColors />
         </ReduxProviders>
       </body>

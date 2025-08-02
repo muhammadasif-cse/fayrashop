@@ -1,7 +1,7 @@
 const Logo = () => {
   return (
     <div>
-      <h3 className="text-2xl font-bold">Fayrashop</h3>
+      <h3 className="text-2xl text-foreground font-bold">FayraShop</h3>
     </div>
   );
 };
