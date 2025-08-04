@@ -84,7 +84,7 @@ export function SignupForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="min-w-lg">
+        <Card className="w-full md:min-w-lg">
           <CardHeader>
             <CardTitle>Create your account</CardTitle>
             <CardDescription>
@@ -92,7 +92,9 @@ export function SignupForm() {
             </CardDescription>
             <CardAction>
               <Link href={"/auth/login"}>
-                <Button type="button" variant="link">Login</Button>
+                <Button type="button" variant="link">
+                  Login
+                </Button>
               </Link>
             </CardAction>
           </CardHeader>
