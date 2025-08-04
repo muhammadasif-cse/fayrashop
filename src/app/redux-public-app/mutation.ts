@@ -25,7 +25,18 @@ export const public_app_mutation = apiTag.injectEndpoints({
         body: data,
       }),
     }),
+    create_contact: builder.mutation({
+      query: (data) => ({
+        url: `${APP_BASE_URL}/contact`,
+        method: Method.POST,
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useSignupMutation, useLoginMutation } = public_app_mutation;
+export const {
+  useSignupMutation,
+  useLoginMutation,
+  useCreate_contactMutation,
+} = public_app_mutation;
